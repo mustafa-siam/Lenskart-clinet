@@ -5,6 +5,7 @@ import Premium from '../Home/premiumsec/Premium';
 import Categories from '../Home/categories/Categories';
 import Brands from '../Home/Brands/Brands';
 import Eyeglasses from '../Home/Eyeglasses/Eyeglasses';
+import Review from '../Home/Review/Review';
 
 const Home = () => {
     return (
@@ -15,6 +16,7 @@ const Home = () => {
             <Categories></Categories>
             <Brands></Brands>
             <Eyeglasses></Eyeglasses>
+            <Review></Review>
         </div>
     );
 };

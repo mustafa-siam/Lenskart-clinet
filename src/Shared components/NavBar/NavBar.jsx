@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { FaCartPlus } from "react-icons/fa";
 const NavBar = () => {
+  const NavLinks=<>
+  <li><Link to={'/shop'}>Shop Now</Link></li>
+  <li><Link className='text-2xl relative'><FaCartPlus /><div className="badge badge-sm absolute bottom-6 left-6 badge-secondary">+2</div></Link></li>
+  <li><Link>Blog</Link></li>
+  </>
     return (
        <div className="navbar bg-base-100 shadow-sm">
   <div className="navbar-start">
@@ -12,32 +17,15 @@ const NavBar = () => {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
-        <li>
-          <a>Parent</a>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li>
-        <li><a>Item 3</a></li>
+        
+        {NavLinks}
       </ul>
     </div>
     <Link className="btn btn-ghost text-xl"><img src="https://static.lenskart.com/media/desktop/img/site-images/main_logo.svg" alt="" /></Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
-      <li><a>Item 1</a></li>
-      <li>
-        <details>
-          <summary>Parent</summary>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </details>
-      </li>
-      <li><a>Item 3</a></li>
+      {NavLinks}
     </ul>
   </div>
   <div className="navbar-end">

@@ -4,6 +4,7 @@ import {
 import Mainlayout from "../Layout/Mainlayout";
 import Home from "../Layout/Home";
 import Shop from "../Pages/Shop/Shop";
+import CardDetails from "../Pages/Itemcard/CardDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,6 +15,9 @@ const router = createBrowserRouter([
     },{
       path:'/shop',
       element:<Shop></Shop>
+    },{
+      path:'/detailscard/:id',
+      element:<CardDetails></CardDetails>
     }]
   },
 ]);

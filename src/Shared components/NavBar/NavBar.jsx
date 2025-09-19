@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaCartPlus } from "react-icons/fa";
+import Registration from '../../Account/Registration';
 const NavBar = () => {
   const NavLinks=<>
   <li><Link to={'/shop'}>Shop Now</Link></li>
@@ -29,7 +30,18 @@ const NavBar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+    <button className="btn" onClick={()=>document.getElementById('signup').showModal()}>Sign Up</button>
+    <dialog id="signup" className="modal">
+  <div className="modal-box bg-base-200 border-base-300 rounded-box border p-4">
+    <form method="dialog">
+      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-2xl">✕</button>
+    </form>
+    <div className='flex justify-center'>
+<Registration></Registration>
+    </div>
+    
+  </div>
+</dialog>
   </div>
 </div>
     );

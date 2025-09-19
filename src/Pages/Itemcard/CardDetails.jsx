@@ -6,11 +6,13 @@ import ImageGallery from "react-image-gallery";
 import Zoom from "react-medium-image-zoom";
 import "react-image-gallery/styles/css/image-gallery.css";
 import "react-medium-image-zoom/dist/styles.css";
-
+import { FaCircle } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa6";
 const CardDetails = () => {
   const { id } = useParams();
   const axiospublic = usePubliceAxios();
-  const { data: item = {}, isLoading } = useQuery({
+  const { data: item=[] } = useQuery({
     queryKey: ["item", id],
     queryFn: async () => {
       const res = await axiospublic.get(`allitems/${id}`);
@@ -20,28 +22,24 @@ const CardDetails = () => {
 
   const [selectedColor, setSelectedColor] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [inputqty, setinputqty] = useState(1); // ✅ added missing state
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <button className="btn loading text-white bg-indigo-500 border-none">
-          Loading
-        </button>
-      </div>
-    );
-  }
-
-  const { name, details, price, images = [], shape, colors = [], quantity } = item;
-
+  const [inputqty, setinputqty] = useState(1);
+  const { name, details, price, images = [], shape, colors = [], quantity} = item;
   const galleryItems = images.map((img) => ({
     original: img,
     thumbnail: img,
   }));
-
+const handleaddcart=()=>{
+  const cartitem={
+           cartid:id,
+           name:name,
+           image:images[0],
+           price:price,
+           orderqty:inputqty,
+  }
+console.log(cartitem)
+}
   return (
     <div className="flex md:flex-row flex-col gap-8 p-6 bg-gray-50 rounded-2xl shadow">
-      {/* Left: Gallery */}
       <div className="flex-1">
         <ImageGallery
           items={galleryItems}
@@ -88,38 +86,37 @@ const CardDetails = () => {
 
         <div>
           <p className="font-medium text-gray-700 mb-2">Choose Colour</p>
-          <div className="flex gap-3 items-center">
-            {colors.map((color, idx) => (
-              <svg
-                key={idx}
-                onClick={() => setSelectedColor(color)}
-                title={color}
-                className={`w-10 h-10 cursor-pointer rounded-full border transition-all ${
-                  selectedColor === color ? "ring-2 ring-indigo-400" : ""
-                }`}
-              >
-                <circle cx="50%" cy="50%" r="50%" fill={color} />
-              </svg>
-            ))}
-          </div>
+        <div className="flex gap-3">
+  {colors.map((color, idx) => (
+    <FaCircle
+      key={idx}
+      className={`p-1 rounded-full cursor-pointer transition ${
+        selectedColor === color ? "ring-2 ring-indigo-500" : "ring-1 ring-gray-300"
+      }`}
+      size={32}
+      color={color}
+      onClick={() => setSelectedColor(color)}
+    />
+  ))}
+</div>
         </div>
 
-        <p className="font-medium text-gray-700 mb-2">Available: {quantity}</p>
-
+        <p className="font-medium text-gray-700 mb-2">Available: 
+          {quantity-inputqty}</p>
+       
         <div className="mt-6 flex items-center gap-4">
-          <input
-            type="number"
-            placeholder="Quantity"
-            name="quantity"
-            value={inputqty}
-            onChange={(e) => setinputqty(parseInt(e.target.value) || 1)}
-            className="px-4 py-3 text-lg border-2 border-gray-300 hover:border-orange-500 rounded-md w-40"
-            min="1"
-            max={quantity}
-            disabled={quantity <= 0}
-          />
-
-          <button className=" px-6 py-3 bg-indigo-600 text-white rounded-xl shadow hover:bg-indigo-700 transition"disabled={quantity <= 0}>
+          <div className="flex items-center gap-5 bg-gray-200 w-fit text-xl font-bold px-3 py-2 rounded-full hover:border-2 border-orange-500">
+        <FaMinus 
+        className="cursor-pointer"
+        onClick={()=>setinputqty(prev=>Math.max(1,prev-1))}
+        />
+         <span className="px-2 ">{inputqty}</span>
+        <FaPlus 
+        className="cursor-pointer"
+        onClick={()=>setinputqty(prev=>Math.min(quantity,prev+1))}
+        />
+       </div>
+          <button onClick={handleaddcart} className=" px-6 py-3 bg-indigo-600 text-white rounded-xl shadow hover:bg-indigo-700 transition"disabled={quantity <= 0}>
             {quantity <=0 ? 'Out of Stock' : 'Add to cart'}
           </button>
         </div>

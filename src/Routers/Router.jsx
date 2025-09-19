@@ -5,7 +5,7 @@ import Mainlayout from "../Layout/Mainlayout";
 import Home from "../Layout/Home";
 import Shop from "../Pages/Shop/Shop";
 import CardDetails from "../Pages/Itemcard/CardDetails";
-import Registration from "../Account/Registration";
+import Orders from "../Pages/Orders/Orders";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,8 +20,8 @@ const router = createBrowserRouter([
       path:'/detailscard/:id',
       element:<CardDetails></CardDetails>
     },{
-      path:'/signup',
-      element:<Registration></Registration>
+      path:'/orders',
+      element:<Orders></Orders>
     }]
   },
 ]);

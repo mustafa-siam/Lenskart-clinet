@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCartPlus } from "react-icons/fa";
 import Registration from '../../Account/Registration';
+import Login from '../../Account/Login';
+import { authcontext } from '../../Providers/Authprovider';
+import { toast } from 'react-toastify';
+import useOrder from '../../Hooks/useorder';
 const NavBar = () => {
+  const [showlogin,setshowlogin]=useState(true)
+  const {user,logout}=useContext(authcontext)
+  const [orders]=useOrder();
+  const handlesignout=()=>{
+  logout()
+  .then(()=>{
+    toast.success("Logout Successfully")
+  })
+  }
   const NavLinks=<>
   <li><Link to={'/shop'}>Shop Now</Link></li>
-  <li><Link className='text-2xl relative'><FaCartPlus /><div className="badge badge-sm absolute bottom-6 left-6 badge-secondary">+2</div></Link></li>
+  <li><Link to={'/orders'} className='text-2xl relative'><FaCartPlus /><div className="badge badge-sm bg-red-600 absolute bottom-6 left-6 badge-secondary font-extrabold text-sm">{orders.length}</div></Link></li>
   <li><Link>Blog</Link></li>
   </>
     return (
@@ -30,14 +43,22 @@ const NavBar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <button className="btn" onClick={()=>document.getElementById('signup').showModal()}>Sign Up</button>
-    <dialog id="signup" className="modal">
+    {
+      user?(<button className='btn bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-600 transition duration-300' onClick={handlesignout}>Sign Out</button>):(<button className="btn bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold rounded-lg shadow-md hover:from-indigo-600 hover:to-purple-600 transition duration-300" onClick={()=>document.getElementById('automodal').showModal()}>Sign In</button>)
+    }
+    <dialog id="automodal" className="modal">
   <div className="modal-box bg-base-200 border-base-300 rounded-box border p-4">
-    <form method="dialog">
+    <form method="dialog" onSubmit={()=>setshowlogin(true)}>
       <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-2xl">✕</button>
     </form>
     <div className='flex justify-center'>
-<Registration></Registration>
+      {
+        showlogin?(
+         <Login onswitch={()=>setshowlogin(false)}></Login>
+        ):(
+          <Registration onswitch={()=>setshowlogin(true)}></Registration>
+        )
+      }
     </div>
     
   </div>

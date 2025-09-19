@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form"
-
-const Registration = () => {
+import { authcontext } from "../Providers/Authprovider";
+import { toast } from "react-toastify";
+const Registration = ({onswitch}) => {
+  const {creatuser}=useContext(authcontext)
 const {
     register,
     handleSubmit,
@@ -10,7 +13,20 @@ const {
 
   const onSubmit = (data) =>{
 console.log(data)
-
+const email=data.email;
+const password=data.password;
+creatuser(email,password)
+.then(result=>{
+  console.log(result.user)
+  toast.success("Account Created Successfully")
+  setTimeout(() => {
+         document.getElementById('automodal').close()
+    }, 3000); 
+})
+.catch(error=>{
+  console.error(error.message)
+  toast.error(`${error.message}`)
+})
   } 
   return (
   <fieldset className="fieldset rounded-box w-xs  p-4">
@@ -32,7 +48,7 @@ console.log(data)
   </form>
   <div className="divider">OR</div>
   <SocialLogin></SocialLogin>
-  <p className="text-base text-center font-medium pt-3 ">Already have an account?<span className="cursor-pointer hover:border-b-2 text-primary">Sign In</span></p>
+  <p className="text-base text-center font-medium pt-3 ">Already have an account?<span className="cursor-pointer hover:border-b-2 text-primary" onClick={onswitch}>Sign In</span></p>
 </fieldset>
   );
 };

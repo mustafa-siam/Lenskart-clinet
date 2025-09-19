@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import usePubliceAxios from "../../Hooks/usePubliceAxios";
 import ImageGallery from "react-image-gallery";
@@ -9,9 +9,17 @@ import "react-medium-image-zoom/dist/styles.css";
 import { FaCircle } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
+import { authcontext } from "../../Providers/Authprovider";
+import useAxiossecure from "../../Hooks/useAxiossecure";
+import { toast } from "react-toastify";
+import useOrder from "../../Hooks/useOrder"
+
 const CardDetails = () => {
+  const {user}=useContext(authcontext)
+  const [,refetch]=useOrder()
   const { id } = useParams();
   const axiospublic = usePubliceAxios();
+  const axiosSecure=useAxiossecure()
   const { data: item=[] } = useQuery({
     queryKey: ["item", id],
     queryFn: async () => {
@@ -31,12 +39,20 @@ const CardDetails = () => {
 const handleaddcart=()=>{
   const cartitem={
            cartid:id,
+           email:user.email,
            name:name,
            image:images[0],
            price:price,
            orderqty:inputqty,
   }
 console.log(cartitem)
+axiosSecure.post('allorders',cartitem)
+.then(res=>{
+  if(res.data.insertedId){
+    toast.success('Your item added in shopping Cart')
+  }
+  refetch();
+})
 }
   return (
     <div className="flex md:flex-row flex-col gap-8 p-6 bg-gray-50 rounded-2xl shadow">

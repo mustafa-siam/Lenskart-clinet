@@ -1,19 +1,38 @@
+
 import useOrder from '../../Hooks/useOrder';
 import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from "react-icons/ai";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
+import useAxiossecure from '../../Hooks/useAxiossecure';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const Orders = () => {
-    const [orders]=useOrder();
+    const [orders,refetch]=useOrder();
     const [localorders,setlocalorders]=useState([])
+    const axiosSecure=useAxiossecure();
+    const navigate=useNavigate();
     useEffect(()=>{
         setlocalorders(orders)
     },[orders])
     const handledelete=(id)=>{
-          console.log(id)
+          axiosSecure.delete(`allorders/${id}`)
+          .then(res=>{
+            if(res.data.deletedCount>0){
+                toast.success('item deleted successfully')
+            }
+            refetch();
+          })
     }
-    const handlePlaceOrder=()=>{
-
+    const handlePlaceOrder=async()=>{
+      for(const item of localorders){
+      const quantities={
+    orderqty: item.orderqty,
+    availableqty: item.availableqty - item.orderqty
+  }
+       await axiosSecure.patch(`allorders/${item._id}`,quantities)
+      }
+      navigate('/placedorder')
     }
     const handleqty=(id,type)=>{
          setlocalorders(prev=>prev.map(item=>item._id===id?{...item,orderqty:type==="inc"?Math.min(item.orderqty+1,item.availableqty):Math.max(1,item.orderqty-1)}:item))
@@ -98,7 +117,7 @@ const Orders = () => {
                             ? 'bg-gray-400 cursor-not-allowed text-gray-700'
                             : 'bg-[#e9004b] text-white hover:text-[#e9004b] hover:bg-white hover:border-red-600'}`}
                 >
-                    Place the Order
+                    Proceed to Checkout
                 </button>
             </div>
         </div>

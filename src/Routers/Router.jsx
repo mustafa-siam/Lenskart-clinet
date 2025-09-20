@@ -6,6 +6,7 @@ import Home from "../Layout/Home";
 import Shop from "../Pages/Shop/Shop";
 import CardDetails from "../Pages/Itemcard/CardDetails";
 import Orders from "../Pages/Orders/Orders";
+import Placedorder from "../Pages/Placedorder/Placedorder";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,6 +23,9 @@ const router = createBrowserRouter([
     },{
       path:'/orders',
       element:<Orders></Orders>
+    },{
+      path:'/placedorder',
+      element:<Placedorder></Placedorder>
     }]
   },
 ]);

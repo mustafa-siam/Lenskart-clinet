@@ -1,16 +1,22 @@
 import useOrder from '../../Hooks/useOrder';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from "react-icons/ai";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 const Orders = () => {
-    const [inputqty, setinputqty] = useState(1);
-    const [orders]=useOrder()
+    const [orders]=useOrder();
+    const [localorders,setlocalorders]=useState([])
+    useEffect(()=>{
+        setlocalorders(orders)
+    },[orders])
     const handledelete=(id)=>{
           console.log(id)
     }
     const handlePlaceOrder=()=>{
 
+    }
+    const handleqty=(id,type)=>{
+         setlocalorders(prev=>prev.map(item=>item._id===id?{...item,orderqty:type==="inc"?Math.min(item.orderqty+1,item.availableqty):Math.max(1,item.orderqty-1)}:item))
     }
     return (
         <div className='w-full flex lg:flex-row flex-col p-2 gap-12 items-center'>
@@ -27,7 +33,7 @@ const Orders = () => {
     </thead>
     <tbody>
       {
-        orders.map((order,idx)=><tr key={order._id}>
+        localorders.map((order,idx)=><tr key={order._id}>
         <th>{idx+1}</th>
         <td className="avatar">
   <div className="mask mask-squircle w-20">
@@ -36,15 +42,16 @@ const Orders = () => {
         </td>
         <td>{order.name}</td>
         <td>
-             <div className="flex items-center gap-5 bg-gray-200 w-fit text-xl font-bold px-3 py-2 rounded-full hover:border-2 border-orange-500">
+             <div className="flex items-center gap-3 bg-gray-200 w-fit text-xl font-bold px-3 py-2 rounded-full hover:border-2 border-orange-500">
                     <FaMinus 
                     className="cursor-pointer"
-                    onClick={()=>setinputqty(prev=>Math.max(1,prev-1))}
+                    onClick={() => handleqty(order._id, "dec")}
+
                     />
-                     <span className="px-2 ">{inputqty}</span>
+                     <span className="px-2 ">{order.orderqty}</span>
                     <FaPlus 
                     className="cursor-pointer"
-                    onClick={()=>setinputqty(prev=>prev+1)}
+                    onClick={()=>handleqty(order._id,"inc")}
                     />
                    </div>
         </td>
@@ -81,7 +88,7 @@ const Orders = () => {
                 <hr />
                 <div className='text-xl font-bold flex justify-between'>
                     <p>Total item price</p>
-                    <p>{orders.reduce((sum,item)=>sum+item.price+item.orderqty,0)}</p>
+                    <p>{localorders.reduce((sum,item)=>sum+item.price*item.orderqty,0)}</p>
                 </div>
                 <button
                     onClick={handlePlaceOrder}

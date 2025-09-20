@@ -44,6 +44,7 @@ const handleaddcart=()=>{
            image:images[0],
            price:price,
            orderqty:inputqty,
+           availableqty:quantity,
   }
 console.log(cartitem)
 axiosSecure.post('allorders',cartitem)
@@ -132,7 +133,7 @@ axiosSecure.post('allorders',cartitem)
         onClick={()=>setinputqty(prev=>Math.min(quantity,prev+1))}
         />
        </div>
-          <button onClick={handleaddcart} className=" px-6 py-3 bg-indigo-600 text-white rounded-xl shadow hover:bg-indigo-700 transition"disabled={quantity <= 0}>
+          <button onClick={handleaddcart} className=" px-6 py-3 bg-indigo-600 text-white rounded-xl shadow hover:bg-indigo-700 transition cursor-pointer"disabled={quantity <= 0}>
             {quantity <=0 ? 'Out of Stock' : 'Add to cart'}
           </button>
         </div>

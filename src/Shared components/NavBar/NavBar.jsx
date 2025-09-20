@@ -5,7 +5,7 @@ import Registration from '../../Account/Registration';
 import Login from '../../Account/Login';
 import { authcontext } from '../../Providers/Authprovider';
 import { toast } from 'react-toastify';
-import useOrder from '../../Hooks/useorder';
+import useOrder from '../../Hooks/useOrder';
 const NavBar = () => {
   const [showlogin,setshowlogin]=useState(true)
   const {user,logout}=useContext(authcontext)

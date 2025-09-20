@@ -21,7 +21,7 @@ creatuser(email,password)
   toast.success("Account Created Successfully")
   setTimeout(() => {
          document.getElementById('automodal').close()
-    }, 3000); 
+    }, 2000); 
 })
 .catch(error=>{
   console.error(error.message)

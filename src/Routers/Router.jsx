@@ -7,6 +7,8 @@ import Shop from "../Pages/Shop/Shop";
 import CardDetails from "../Pages/Itemcard/CardDetails";
 import Orders from "../Pages/Orders/Orders";
 import Placedorder from "../Pages/Placedorder/Placedorder";
+import ConfirmOrder from "../Pages/Orderdone/ConfirmOrder";
+import Payment from "../Pages/Payment/Payment";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,7 +28,13 @@ const router = createBrowserRouter([
     },{
       path:'/placedorder',
       element:<Placedorder></Placedorder>
-    }]
+    },{
+      path:'/orderconfirm/:orderid',
+      element:<ConfirmOrder></ConfirmOrder>
+    },{
+      path:'/payment',
+      element:<Payment></Payment>
+    },]
   },
 ]);
 export default router;

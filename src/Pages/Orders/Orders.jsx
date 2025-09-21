@@ -1,4 +1,3 @@
-
 import useOrder from '../../Hooks/useOrder';
 import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from "react-icons/ai";
@@ -7,6 +6,8 @@ import { FaMinus } from "react-icons/fa6";
 import useAxiossecure from '../../Hooks/useAxiossecure';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import emptyData from "../../assets/emptyData.json"
+import Lottie from 'lottie-react';
 const Orders = () => {
     const [orders,refetch]=useOrder();
     const [localorders,setlocalorders]=useState([])
@@ -39,6 +40,14 @@ const Orders = () => {
     }
     return (
         <div className='w-full flex lg:flex-row flex-col p-2 gap-12 items-center'>
+           {localorders.length === 0 ? (
+       <div className="flex flex-col items-center justify-center w-full h-full">
+      <Lottie animationData={emptyData} className="w-64 h-64"/>
+      <h2 className="text-xl font-bold mt-4">Your cart is empty!</h2>
+        <p className="text-gray-500 mt-2">Please add items to your cart before proceeding.</p>
+    </div>
+    ) : (
+      <>
             <table className="table table-zebra overflow-x-auto lg:w-2/3">
     <thead>
       <tr>
@@ -90,9 +99,7 @@ const Orders = () => {
                     >
                         Add cuopons
                     </div>
-                    <div
-                        className="collapse-content"
-                    >
+                    <div className="collapse-content">
                         <div className="join w-full">
                             <input type="text" className="input join-item" placeholder="Enter Code" />
                             <button className="btn join-item text-white bg-[#e9004b]">Apply</button>
@@ -120,6 +127,8 @@ const Orders = () => {
                     Proceed to Checkout
                 </button>
             </div>
+             </>
+    )}
         </div>
     );
 };

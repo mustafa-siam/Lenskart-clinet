@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import usePubliceAxios from "../../Hooks/usePubliceAxios";
 import ImageGallery from "react-image-gallery";
 import Zoom from "react-medium-image-zoom";
@@ -13,10 +13,10 @@ import { authcontext } from "../../Providers/Authprovider";
 import useAxiossecure from "../../Hooks/useAxiossecure";
 import { toast } from "react-toastify";
 import useOrder from "../../Hooks/useOrder"
-
+import { FaCircleArrowRight } from "react-icons/fa6";
 const CardDetails = () => {
   const {user}=useContext(authcontext)
-  const [,refetch]=useOrder()
+  const [orders,refetch]=useOrder()
   const { id } = useParams();
   const axiospublic = usePubliceAxios();
   const axiosSecure=useAxiossecure()
@@ -135,8 +135,15 @@ axiosSecure.post('allorders',cartitem)
        </div>
           <button onClick={handleaddcart} className=" px-6 py-3 bg-indigo-600 text-white rounded-xl shadow hover:bg-indigo-700 transition cursor-pointer"disabled={quantity <= 0}>
             {quantity <=0 ? 'Out of Stock' : 'Add to cart'}
-          </button>
+          </button>     
         </div>
+        <Link to={'/orders'}  disabled={orders.length < 1}
+                    className={`btn text-xl my-4 py-6
+                        ${orders.length < 1
+                            ? 'bg-gray-400 cursor-not-allowed text-gray-700'
+                            : 'bg-[#e9004b] text-white hover:text-[#e9004b] hover:bg-white hover:border-red-600'}`}>
+            Checkout <FaCircleArrowRight className="pt-1 text-2xl"/>
+        </Link> 
       </div>
     </div>
   );

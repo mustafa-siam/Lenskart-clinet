@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
-
+import { MdFavorite } from "react-icons/md";
 const Itemcard = ({item}) => {
     const {name,details,price,images,_id}=item;
+    const [isfav,setisfav]=useState(false)
+    const handlefav=()=>{
+     setisfav(!isfav)
+    }
     return (
             <div className="card bg-base-100  shadow-sm">
+              <div onClick={handlefav} className='flex justify-end pr-2 text-gray-500 '>
+    <MdFavorite  
+    className={`text-4xl cursor-pointer hover:text-red-600 transition-colors ${isfav ? 'text-red-600' : 'text-gray-500'}`}
+    />
+  </div>
   <figure className="hover-gallery w-full h-48 relative">
    {
     images.slice(0,2).map((img,idx)=>(

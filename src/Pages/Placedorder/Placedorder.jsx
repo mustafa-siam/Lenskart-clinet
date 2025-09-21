@@ -2,10 +2,16 @@ import { authcontext } from '../../Providers/Authprovider';
 import useOrder from '../../Hooks/useOrder';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import useAxiossecure from '../../Hooks/useAxiossecure';
+import { toast } from 'react-toastify';
+import moment from 'moment';
 
 const Placedorder = () => {
   const [orders] = useOrder();
   const {user}=useContext(authcontext)
+  const navigate=useNavigate();
+  const axiosSecure=useAxiossecure();
   const {
     register,
     handleSubmit,
@@ -14,7 +20,30 @@ const Placedorder = () => {
 
   // form submit handler
   const onSubmit = (data) => {
-    console.log("Final Order Payload:");
+     const saveorder = {
+    ...data,
+    orders,
+    total: orders.reduce((sum, item) => sum + item.price * item.orderqty, 0),
+    user: user?.email,
+    orderDate:moment().format("DD-MM-YYYY"),
+    status: "Pending",
+  };
+    console.log(saveorder);
+    if(data.payment==="cod"){
+     axiosSecure.post('/orderhistory',saveorder)
+     .then(res=>{
+      if(res.data.insertedId){
+          toast.success("Your order has been received.")
+          const orderid=res.data.insertedId;
+          setTimeout(() => {
+        navigate(`/orderconfirm/${orderid}`)
+       }, 2000);
+      }
+     })  
+    }
+    else{
+     // navigate('/payment')
+    }
   };
 
   return (
@@ -63,7 +92,7 @@ const Placedorder = () => {
               type="text"
               {...register("house", { required: true })}
               className="input input-bordered w-full"
-              placeholder="House number"
+              placeholder="House name & number"
             />
             {errors.house && <span className="text-red-600 text-sm">This field is required</span>}
           </div>
@@ -105,15 +134,17 @@ const Placedorder = () => {
     <span className="text-red-600 text-sm">{errors.phone.message}</span>
   )}
 </div>
-          <div>
-            <label className="label font-medium">Delivery Date</label>
-            <input
-              type="date"
-              {...register("deliveryDate", { required: true })}
-              className="input input-bordered w-full"
-            />
-            {errors.deliveryDate && <span className="text-red-600 text-sm">This field is required</span>}
-          </div>
+          <input
+  type="date"
+  {...register("deliveryDate", {
+    required: "Delivery date is required",
+  })}
+  className="input input-bordered w-full"
+  min={new Date().toISOString().split("T")[0]}
+/>
+{errors.deliveryDate && (
+  <span className="text-red-600 text-sm">{errors.deliveryDate.message}</span>
+)}
 
           <div>
             <label className="label font-medium">Delivery Time</label>
@@ -193,7 +224,7 @@ const Placedorder = () => {
             <p>Total item price</p>
             <p>{orders.reduce((sum,item)=>sum+item.price*item.orderqty,0)}</p>
           </div>
-          <button type="submit" className="btn btn-primary w-full mt-6 rounded-xl">
+          <button type="submit" disabled={orders.length < 1} className="btn btn-primary w-full mt-6 rounded-xl">
             Place Order
           </button>
         </div>

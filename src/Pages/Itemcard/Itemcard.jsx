@@ -2,11 +2,27 @@ import React, { useState } from 'react';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import { MdFavorite } from "react-icons/md";
+import useAxiossecure from '../../Hooks/useAxiossecure';
+import useItems from '../../Hooks/useItems';
+
 const Itemcard = ({item}) => {
-    const {name,details,price,images,_id}=item;
-    const [isfav,setisfav]=useState(false)
+    const {name,details,price,images,_id,favcart}=item;
+    const [,refetch]=useItems()
+    const [isfav,setisfav]=useState(favcart);
+   const axiosSecure=useAxiossecure();
     const handlefav=()=>{
-     setisfav(!isfav)
+      const newfav=!isfav;
+      setisfav(newfav);
+      const favcart={
+        favcart:newfav,
+      }
+      axiosSecure.patch(`/allitems/${_id}`,favcart)
+      .then(res=>{
+        if(res.data.modifiedCount>0){
+          refetch()
+        }
+      })
+
     }
     return (
             <div className="card bg-base-100  shadow-sm">

@@ -6,10 +6,13 @@ import Login from '../../Account/Login';
 import { authcontext } from '../../Providers/Authprovider';
 import { toast } from 'react-toastify';
 import useOrder from '../../Hooks/useOrder';
+import { MdFavoriteBorder } from 'react-icons/md';
+import Usefavcart from '../../Hooks/Usefavcart';
 const NavBar = () => {
   const [showlogin,setshowlogin]=useState(true)
   const {user,logout}=useContext(authcontext)
   const [orders]=useOrder();
+  const [favcarts]=Usefavcart()
   const handlesignout=()=>{
   logout()
   .then(()=>{
@@ -18,8 +21,12 @@ const NavBar = () => {
   }
   const NavLinks=<>
   <li><Link to={'/shop'}>Shop Now</Link></li>
-  <li><Link to={'/orders'} className='text-2xl relative'><FaCartPlus /><div className="badge badge-sm bg-red-600 absolute bottom-6 left-6 badge-secondary font-extrabold text-sm">{orders.length}</div></Link></li>
-  <li><Link>Blog</Link></li>
+  <li><Link to={'/orders'} ><FaCartPlus className='text-2xl relative'/> <span className='pl-1'>Cart</span><div className="bg-[#329c92] absolute bottom-6 left-7 font-bold text-sm w-5 h-5 rounded-full flex items-center justify-center text-white">
+    {orders.length}
+</div></Link></li>
+  <li><Link to={'/whislist'}><MdFavoriteBorder className='text-2xl relative'></MdFavoriteBorder>Whislist<div className="bg-[#329c92] absolute bottom-6 left-6 font-bold text-sm w-5 h-5 rounded-full flex items-center justify-center text-white">
+    {favcarts.length}
+</div></Link></li>
   </>
     return (
        <div className="navbar bg-base-100 shadow-sm">
@@ -30,7 +37,7 @@ const NavBar = () => {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow space-y-4">
         
         {NavLinks}
       </ul>

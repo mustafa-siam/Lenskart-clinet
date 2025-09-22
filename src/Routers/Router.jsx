@@ -9,6 +9,7 @@ import Orders from "../Pages/Orders/Orders";
 import Placedorder from "../Pages/Placedorder/Placedorder";
 import ConfirmOrder from "../Pages/Orderdone/ConfirmOrder";
 import Payment from "../Pages/Payment/Payment";
+import Whislist from "../Pages/Whislist/Whislist";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,7 +35,10 @@ const router = createBrowserRouter([
     },{
       path:'/payment',
       element:<Payment></Payment>
-    },]
+    },{
+      path:"/whislist",
+      element:<Whislist></Whislist>
+    }]
   },
 ]);
 export default router;

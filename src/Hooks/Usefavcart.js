@@ -1,10 +1,19 @@
-import React from 'react';
-import useItems from './useItems';
-
+import { useQuery } from '@tanstack/react-query';
+import useAxiossecure from './useAxiossecure';
+import { useContext } from 'react';
+import { authcontext } from '../Providers/Authprovider';
 const Usefavcart = () => {
-    const [items]=useItems();
-    const favcarts=items.filter(item=>item.favcart===true)
-    return [favcarts]
+  const axiosSecure = useAxiossecure();
+const { user } = useContext(authcontext);
+  const { data: favcarts = [], refetch } = useQuery({
+    queryKey: ['favcarts', user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/wishlist?email=${user.email}`);
+      return res.data;
+    }
+  });
+
+  return [favcarts, refetch];
 };
 
 export default Usefavcart;

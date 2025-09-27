@@ -3,6 +3,7 @@ import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form"
 import { authcontext } from '../Providers/Authprovider';
 import { toast } from 'react-toastify';
+import {useLocation, useNavigate } from 'react-router-dom';
 const Login = ({onswitch}) => {
     const {login}=useContext(authcontext)
     const {
@@ -10,7 +11,9 @@ const Login = ({onswitch}) => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-
+  const location=useLocation()
+const navigate=useNavigate()
+const from=location.state?.from || '/'
   const onSubmit = (data) =>{
 const email=data.email;
 const password=data.password;
@@ -20,6 +23,7 @@ login(email,password)
     toast.success('Login successfull')
     setTimeout(() => {
          document.getElementById('automodal').close()
+         navigate(from);
     }, 2000); 
 })
 .catch(error=>{
@@ -28,7 +32,7 @@ login(email,password)
 })
   } 
     return (
-        <div>
+        <div className='flex justify-center items-center w-full'>
              <fieldset className="fieldset rounded-box w-xs  p-4">
     <div className="flex justify-between text-base font-bold">
   <legend className="fieldset-legend">Login to your account</legend>

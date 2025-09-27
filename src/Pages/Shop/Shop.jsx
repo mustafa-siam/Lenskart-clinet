@@ -55,8 +55,6 @@ const Shop = () => {
         }
         setSearchParams(newParams);
     };
-
-    // Get the currently selected category and shape from the URL
     const selectedCategory = searchParams.get('category');
     const selectedShape = searchParams.get('shape');
 

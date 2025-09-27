@@ -10,6 +10,8 @@ import Placedorder from "../Pages/Placedorder/Placedorder";
 import ConfirmOrder from "../Pages/Orderdone/ConfirmOrder";
 import Payment from "../Pages/Payment/Payment";
 import Whislist from "../Pages/Whislist/Whislist";
+import Login from "../Account/Login";
+import PrivateRoute from "../Private routes/PrivateRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,7 +39,10 @@ const router = createBrowserRouter([
       element:<Payment></Payment>
     },{
       path:"/whislist",
-      element:<Whislist></Whislist>
+      element:<PrivateRoute><Whislist></Whislist></PrivateRoute> 
+    },{
+      path:"/login",
+      element:<Login></Login>
     }]
   },
 ]);

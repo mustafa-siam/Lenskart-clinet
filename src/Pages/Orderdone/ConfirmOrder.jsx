@@ -1,14 +1,15 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import useAxiossecure from '../../Hooks/useAxiossecure';
-import { FaShippingFast, FaAddressCard, FaCheckCircle } from 'react-icons/fa';
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import useAxiossecure from "../../Hooks/useAxiossecure";
+import { FaShippingFast, FaAddressCard, FaCheckCircle } from "react-icons/fa";
+
 const ConfirmOrder = () => {
   const { orderid } = useParams();
   const axiosSecure = useAxiossecure();
 
   const { data: order = {} } = useQuery({
-    queryKey: ['order', orderid],
+    queryKey: ["order", orderid],
     queryFn: async () => {
       const res = await axiosSecure.get(`orderhistory/${orderid}`);
       return res.data;

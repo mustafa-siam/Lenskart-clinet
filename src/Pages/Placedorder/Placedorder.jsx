@@ -21,6 +21,7 @@ const Placedorder = () => {
   // form submit handler
   const onSubmit = (data) => {
      const saveorder = {
+      userName:user?.displayName,
     ...data,
     orders,
     total: orders.reduce((sum, item) => sum + item.price * item.orderqty, 0),
@@ -28,7 +29,6 @@ const Placedorder = () => {
     orderDate:moment().format("DD-MM-YYYY"),
     status: "Pending",
   };
-    console.log(saveorder);
     if(data.payment==="cod"){
      axiosSecure.post('/orderhistory',saveorder)
      .then(res=>{
@@ -42,7 +42,7 @@ const Placedorder = () => {
      })  
     }
     else{
-     // navigate('/payment')
+     navigate('/payment',{state:{data}})
     }
   };
 
@@ -201,7 +201,7 @@ const Placedorder = () => {
         </div>
 
         {/* Billing Details + Place Order */}
-        <div className='bg-white rounded-2xl shadow-md p-6 space-y-2'>
+        <div className='bg-white rounded-2xl shadow-md p-6 space-y-3'>
           <h2 className='font-medium'>Billing Details</h2>
           <hr />
           <div className="bg-base-100 collapse collapse-arrow border-base-300 border">
@@ -224,7 +224,13 @@ const Placedorder = () => {
             <p>Total item price</p>
             <p>{orders.reduce((sum,item)=>sum+item.price*item.orderqty,0)}</p>
           </div>
-          <button type="submit" disabled={orders.length < 1} className="btn btn-primary w-full mt-6 rounded-xl">
+          <button
+           type="submit" 
+           disabled={orders.length < 1}
+           className={`w-full py-3 rounded-xl text-white font-bold flex items-center justify-center gap-2 transition-all duration-300
+         ${orders.length < 1 ? 'bg-gray-300 cursor-not-allowed' 
+         : 'cursor-pointer bg-gradient-to-r from-fuchsia-500 via-pink-500 to-purple-600 hover:from-purple-600 hover:to-fuchsia-500 shadow-lg hover:shadow-xl'
+    }`}>
             Place Order
           </button>
         </div>

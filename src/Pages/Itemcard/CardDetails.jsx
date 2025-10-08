@@ -41,7 +41,7 @@ const handleaddcart=()=>{
            cartid:id,
            email:user.email,
            name:name,
-           image:images[0],
+           image:images[1],
            price:price,
            orderqty:inputqty,
            availableqty:quantity,

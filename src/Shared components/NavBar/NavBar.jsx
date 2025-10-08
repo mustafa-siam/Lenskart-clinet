@@ -27,6 +27,7 @@ const NavBar = () => {
   <li><Link to={'/whislist'}><MdFavoriteBorder className='text-2xl relative'></MdFavoriteBorder>Whislist<div className="bg-[#329c92] absolute bottom-6 left-6 font-bold text-sm w-5 h-5 rounded-full flex items-center justify-center text-white">
     {favcarts.length}
 </div></Link></li>
+<li><Link to={'/dashboard'}>Dashboard</Link></li>
   </>
     return (
        <div className="navbar bg-base-100 shadow-sm">
@@ -42,7 +43,7 @@ const NavBar = () => {
         {NavLinks}
       </ul>
     </div>
-    <Link className="btn btn-ghost text-xl"><img src="https://static.lenskart.com/media/desktop/img/site-images/main_logo.svg" alt="" /></Link>
+    <Link to={'/'} className="btn btn-ghost text-xl"><img src="https://static.lenskart.com/media/desktop/img/site-images/main_logo.svg" alt="" /></Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">

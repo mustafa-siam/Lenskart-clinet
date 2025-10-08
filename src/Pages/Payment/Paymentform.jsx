@@ -6,6 +6,8 @@ import { FaLock, FaCreditCard } from 'react-icons/fa';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import useAxiossecure from '../../Hooks/useAxiossecure';
 import { authcontext } from '../../Providers/Authprovider';
+import moment from 'moment';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Paymentform = () => {
   const stripe = useStripe();
@@ -13,9 +15,12 @@ const Paymentform = () => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
-  const [orders] = useOrder();
+  const [orders,refetch] = useOrder();
   const {user}=useContext(authcontext)
   const axiosSecure=useAxiossecure()
+  const navigate=useNavigate()
+  const location=useLocation();
+  const deleveryData=location.state?.data;
  const total = orders.reduce((sum, item) => sum + item.price * item.orderqty, 0);
  const amountincents=total*100;
   const handleSubmit = async (e) => {
@@ -44,14 +49,6 @@ const Paymentform = () => {
       setErrorMsg(error.message);
     } else {
       setSuccessMsg('Payment Successful!');
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Order Confirmed!",
-        text: "Thank you! Your payment was successful 🎉",
-        timer: 2000
-      });
-      console.log('Payment Method:', paymentMethod);
     }
     setLoading(false);
     //step2:creat payment intent
@@ -59,6 +56,7 @@ const Paymentform = () => {
       amountincents,
     })
     const clientSecret=res.data.clientSecret;
+    //step3:confirem card payment
      const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
@@ -73,9 +71,38 @@ const Paymentform = () => {
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === 'succeeded') {
-        console.log('Payment succeeded!');
-        console.log(result)
-      }}
+  console.log('Payment succeeded!');
+  
+  // Create order data same as COD
+  const orderData = {
+    userName:user?.displayName,
+    user: user?.email,
+    ...deleveryData,
+    orders,
+    total,
+    orderDate: moment().format("DD-MM-YYYY"),
+    status: "Pending",
+    paymentMethod: "Online",
+  };
+
+  // Save to order history collection
+  const res2 = await axiosSecure.post('/orderhistory', orderData);
+  if (res2.data.insertedId) {
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Payment Successful 🎉",
+      text: "Your order has been placed!",
+      timer: 2000
+    });
+    refetch();
+    setTimeout(() => {
+      navigate("/")
+    }, 3500);
+  }
+}
+
+    }
     console.log("res from intent",res)
   };
 

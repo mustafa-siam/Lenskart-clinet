@@ -12,6 +12,7 @@ import Payment from "../Pages/Payment/Payment";
 import Whislist from "../Pages/Whislist/Whislist";
 import Login from "../Account/Login";
 import PrivateRoute from "../Private routes/PrivateRoute";
+import Dashboard from "../Dashboard/Dashboard";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,7 +44,11 @@ const router = createBrowserRouter([
     },{
       path:"/login",
       element:<Login></Login>
-    }]
-  },
+    },
+  ]
+  },{
+ path:"/dashboard",
+      element:<Dashboard></Dashboard>
+  }
 ]);
 export default router;

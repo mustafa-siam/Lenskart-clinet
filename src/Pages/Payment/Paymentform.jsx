@@ -76,13 +76,13 @@ const Paymentform = () => {
   // Create order data same as COD
   const orderData = {
     userName:user?.displayName,
-    user: user?.email,
+    email: user?.email,
     ...deleveryData,
     orders,
     total,
     orderDate: moment().format("DD-MM-YYYY"),
     status: "Pending",
-    paymentMethod: "Online",
+    payment: "Online",
   };
 
   // Save to order history collection

@@ -13,6 +13,7 @@ import Whislist from "../Pages/Whislist/Whislist";
 import Login from "../Account/Login";
 import PrivateRoute from "../Private routes/PrivateRoute";
 import Dashboard from "../Dashboard/Dashboard";
+import OrderHistory from "../Dashboard/OrderHistory";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,7 +49,11 @@ const router = createBrowserRouter([
   ]
   },{
  path:"/dashboard",
-      element:<Dashboard></Dashboard>
+      element:<Dashboard></Dashboard>,
+      children:[{
+        path:"orderHistory",
+        element:<OrderHistory></OrderHistory>
+      }]
   }
 ]);
 export default router;

@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 
 const Placedorder = () => {
-  const [orders] = useOrder();
+  const [orders,refetch] = useOrder();
   const {user}=useContext(authcontext)
   const navigate=useNavigate();
   const axiosSecure=useAxiossecure();
@@ -22,10 +22,10 @@ const Placedorder = () => {
   const onSubmit = (data) => {
      const saveorder = {
       userName:user?.displayName,
+      email: user?.email,
     ...data,
     orders,
     total: orders.reduce((sum, item) => sum + item.price * item.orderqty, 0),
-    user: user?.email,
     orderDate:moment().format("DD-MM-YYYY"),
     status: "Pending",
   };
@@ -37,6 +37,7 @@ const Placedorder = () => {
           const orderid=res.data.insertedId;
           setTimeout(() => {
         navigate(`/orderconfirm/${orderid}`)
+        refetch()
        }, 2000);
       }
      })  

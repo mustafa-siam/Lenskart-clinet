@@ -14,6 +14,7 @@ import Login from "../Account/Login";
 import PrivateRoute from "../Private routes/PrivateRoute";
 import Dashboard from "../Dashboard/Dashboard";
 import OrderHistory from "../Dashboard/OrderHistory";
+import UserProfile from "../Dashboard/userProfile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,9 +51,14 @@ const router = createBrowserRouter([
   },{
  path:"/dashboard",
       element:<Dashboard></Dashboard>,
-      children:[{
+      children:[
+        //user dashboard
+        {
         path:"orderHistory",
         element:<OrderHistory></OrderHistory>
+      },{
+        path:"updateProfile",
+        element:<UserProfile></UserProfile>
       }]
   }
 ]);

@@ -36,17 +36,16 @@ const Dashboard = () => {
             </>
           ) : (
             <>
-              <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/userHome"><IoMdHome size={20}/> User Home</Link></li>
-              <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/paymentHistory"><MdOutlinePayment size={20}/> Payment History</Link></li>
+              <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition"     to="/"><IoMdHome size={20}/> User Home</Link></li>
+             
               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/orderHistory"><FaHistory size={20}/> Order History</Link></li>
               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/updateProfile"><FaUserEdit size={20}/> Update Profile</Link></li>
             </>
           )}
-          <hr className="border-gray-300" />
-          <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/"><IoMdHome size={20}/> Home</Link></li>
-          <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/order"><FaShoppingCart size={20}/> Carts</Link></li>
+          <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition"
+          to="/orders"><FaShoppingCart size={20}/>My Carts</Link></li>
           <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/shop"><GiShoppingBag size={20}/> Shop</Link></li>
-          <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/whislist"><FaRegHeart size={20}/> Whislist</Link></li>
+          <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/whislist"><FaRegHeart size={20}/>My Whislist</Link></li>
         </ul>
       </div>
 

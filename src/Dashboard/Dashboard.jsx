@@ -6,7 +6,7 @@ import { GiShoppingBag, GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlinePayment } from "react-icons/md";
 
 const Dashboard = () => {
-  const isAdmin = false;
+  const isAdmin = true;
   const [open, setOpen] = useState(false);
 
   return (
@@ -39,7 +39,7 @@ const Dashboard = () => {
               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition"     to="/"><IoMdHome size={20}/> User Home</Link></li>
              
               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/orderHistory"><FaHistory size={20}/> Order History</Link></li>
-              <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/updateProfile"><FaUserEdit size={20}/> Update Profile</Link></li>
+              <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/userProfile"><FaUserEdit size={20}/> Update Profile</Link></li>
             </>
           )}
           <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition"

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import { authcontext } from "../Providers/Authprovider";
 import { toast } from "react-toastify";
 const Registration = ({onswitch}) => {
-  const {creatuser}=useContext(authcontext)
+  const {creatuser,updateprofile}=useContext(authcontext)
 const {
     register,
     handleSubmit,
@@ -13,11 +13,14 @@ const {
 
   const onSubmit = (data) =>{
 console.log(data)
+const name=data.name;
 const email=data.email;
 const password=data.password;
 creatuser(email,password)
+
 .then(result=>{
   console.log(result.user)
+  updateprofile(name)
   toast.success("Account Created Successfully")
   setTimeout(() => {
          document.getElementById('automodal').close()

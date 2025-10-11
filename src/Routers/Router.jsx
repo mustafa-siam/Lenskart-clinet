@@ -15,6 +15,10 @@ import PrivateRoute from "../Private routes/PrivateRoute";
 import Dashboard from "../Dashboard/Dashboard";
 import OrderHistory from "../Dashboard/OrderHistory";
 import UserProfile from "../Dashboard/userProfile";
+import UpdateProfile from "../Dashboard/UpdateProfile";
+import AddItem from "../Dashboard/AdminBoard/AddItem";
+import ManageItems from "../Dashboard/AdminBoard/ManageItems";
+import Editglasscart from "../Dashboard/AdminBoard/Editglasscart";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,8 +61,22 @@ const router = createBrowserRouter([
         path:"orderHistory",
         element:<OrderHistory></OrderHistory>
       },{
-        path:"updateProfile",
+        path:"userprofile",
         element:<UserProfile></UserProfile>
+      },{
+        path:"updateProfile",
+        element:<UpdateProfile></UpdateProfile>
+      },
+      //Admin dashboard
+      {
+        path:"additem",
+        element:<AddItem></AddItem>
+      },{
+        path:"manageitem",
+        element:<ManageItems></ManageItems>
+      },{
+        path:"updateglass/:id",
+        element:<Editglasscart></Editglasscart>
       }]
   }
 ]);

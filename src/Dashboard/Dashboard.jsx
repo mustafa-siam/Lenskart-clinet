@@ -4,14 +4,14 @@ import { IoMdHome } from "react-icons/io";
 import { FaShoppingCart, FaUsers, FaRegHeart, FaHistory, FaUserEdit } from "react-icons/fa";
 import { GiShoppingBag, GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlinePayment } from "react-icons/md";
+import useAdmin from '../Hooks/useAdmin';
 
 const Dashboard = () => {
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
   const [open, setOpen] = useState(false);
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden relative">
-      {/* Overlay for closing drawer on mobile */}
       {open && (
         <div
           className="fixed inset-0 bg-black/30 z-40 lg:hidden"
@@ -39,9 +39,9 @@ const Dashboard = () => {
               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition"     to="/"><IoMdHome size={20}/> User Home</Link></li>
              
               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/orderHistory"><FaHistory size={20}/> Order History</Link></li>
-              <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/userProfile"><FaUserEdit size={20}/> Update Profile</Link></li>
             </>
           )}
+           <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/userProfile"><FaUserEdit size={20}/> Update Profile</Link></li>
           <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition"
           to="/orders"><FaShoppingCart size={20}/>My Carts</Link></li>
           <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/shop"><GiShoppingBag size={20}/> Shop</Link></li>

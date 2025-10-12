@@ -19,6 +19,7 @@ import UpdateProfile from "../Dashboard/UpdateProfile";
 import AddItem from "../Dashboard/AdminBoard/AddItem";
 import ManageItems from "../Dashboard/AdminBoard/ManageItems";
 import Editglasscart from "../Dashboard/AdminBoard/Editglasscart";
+import AllUsers from "../Dashboard/AdminBoard/Allusers";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -77,6 +78,9 @@ const router = createBrowserRouter([
       },{
         path:"updateglass/:id",
         element:<Editglasscart></Editglasscart>
+      },{
+        path:"allusers",
+        element:<AllUsers></AllUsers>
       }]
   }
 ]);

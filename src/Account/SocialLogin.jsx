@@ -1,19 +1,34 @@
+import moment from 'moment';
+import usePubliceAxios from '../Hooks/usePubliceAxios';
 import { authcontext } from '../Providers/Authprovider';
 import React, { useContext } from 'react';
 import { FcGoogle } from "react-icons/fc";
 import { useLocation, useNavigate } from 'react-router-dom';
 const SocialLogin = () => {
   const {googlelogin}=useContext(authcontext)
+  const axiospublic=usePubliceAxios()
   const location=useLocation()
   const navigate=useNavigate()
   const from=location.state?.from || '/'
   const handlegoogle=()=>{
      googlelogin()
-     .then((result)=>{
+     .then(async(result)=>{
       console.log(result.user)
-      navigate(from)
-     }
-     )
+      const userinfo={
+            name:result.user?.displayName,
+            email:result.user?.email,
+            createdAt:moment().format("DD-MM-YYYY"),
+            role:"user"
+        }
+     const res= await axiospublic.post('users', userinfo);
+      if(res.data.insertedId){
+document.getElementById('automodal').close();        
+          navigate(from);
+      }  
+      })
+      .catch((error) => {
+        console.error("Google Login Error:", error);
+      });
   }
     return (
         <div>

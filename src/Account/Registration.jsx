@@ -3,12 +3,16 @@ import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form"
 import { authcontext } from "../Providers/Authprovider";
 import { toast } from "react-toastify";
+import useAxiossecure from "../Hooks/useAxiossecure";
+import moment from "moment";
 const Registration = ({onswitch}) => {
   const {creatuser,updateprofile}=useContext(authcontext)
+  const axiosecure=useAxiossecure()
 const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm()
 
   const onSubmit = (data) =>{
@@ -18,13 +22,23 @@ const email=data.email;
 const password=data.password;
 creatuser(email,password)
 
-.then(result=>{
+.then((result)=>{
   console.log(result.user)
-  updateprofile(name)
-  toast.success("Account Created Successfully")
-  setTimeout(() => {
+ updateprofile(name)
+ .then(async() => {
+            const userinfo = {
+              name: name,
+              email: email,
+              createdAt:moment().format("DD-MM-YYYY"),
+              role:"user",
+            }
+ const res=await axiosecure.post('users',userinfo)
+ if(res.data.insertedId){
+toast.success("Account Created Successfully")
+reset();
+ }
+  })
          document.getElementById('automodal').close()
-    }, 2000); 
 })
 .catch(error=>{
   console.error(error.message)

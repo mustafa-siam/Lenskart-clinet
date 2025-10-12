@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { IoMdHome } from "react-icons/io";
-import { FaShoppingCart, FaUsers, FaRegHeart, FaHistory, FaUserEdit } from "react-icons/fa";
+import { FaShoppingCart, FaUsers, FaRegHeart, FaHistory, FaUserEdit,FaClipboardList } from "react-icons/fa";
 import { GiShoppingBag, GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlinePayment } from "react-icons/md";
 import useAdmin from '../Hooks/useAdmin';
@@ -32,6 +32,7 @@ const Dashboard = () => {
               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/adminHome"><IoMdHome size={20}/> Admin Home</Link></li>
               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/additem"><GiShoppingBag size={20}/> Add Items</Link></li>
               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/manageitem"><GiHamburgerMenu size={20}/> Manage Items</Link></li>
+               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/allorders"><FaClipboardList size={20}/> All Orders</Link></li>
               <li><Link className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition" to="/dashboard/allusers"><FaUsers size={20}/> All Users</Link></li>
             </>
           ) : (

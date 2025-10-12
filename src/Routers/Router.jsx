@@ -20,6 +20,8 @@ import AddItem from "../Dashboard/AdminBoard/AddItem";
 import ManageItems from "../Dashboard/AdminBoard/ManageItems";
 import Editglasscart from "../Dashboard/AdminBoard/Editglasscart";
 import AllUsers from "../Dashboard/AdminBoard/Allusers";
+import AllOrders from "../Dashboard/AdminBoard/AllOrders";
+import AdminHome from "../Dashboard/AdminBoard/AdminHome";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -81,6 +83,12 @@ const router = createBrowserRouter([
       },{
         path:"allusers",
         element:<AllUsers></AllUsers>
+      },{
+        path:"allorders",
+        element:<AllOrders></AllOrders>
+      },{
+        path:"adminHome",
+        element:<AdminHome></AdminHome>
       }]
   }
 ]);

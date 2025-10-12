@@ -8,11 +8,13 @@ import { toast } from 'react-toastify';
 import useOrder from '../../Hooks/useOrder';
 import { MdFavoriteBorder } from 'react-icons/md';
 import Usefavcart from '../../Hooks/Usefavcart';
+import useAdmin from '../../Hooks/useAdmin';
 const NavBar = () => {
   const [showlogin,setshowlogin]=useState(true)
   const {user,logout}=useContext(authcontext)
   const [orders]=useOrder();
   const [favcarts]=Usefavcart()
+  const [isAdmin]=useAdmin()
   const handlesignout=()=>{
   logout()
   .then(()=>{
@@ -27,7 +29,10 @@ const NavBar = () => {
   <li><Link to={'/whislist'}><MdFavoriteBorder className='text-2xl relative'></MdFavoriteBorder>Whislist<div className="bg-[#329c92] absolute bottom-6 left-6 font-bold text-sm w-5 h-5 rounded-full flex items-center justify-center text-white">
     {favcarts.length}
 </div></Link></li>
-<li><Link to={'/dashboard'}>Dashboard</Link></li>
+{
+  isAdmin?<li><Link to={'/dashboard/adminHome'}>Dashboard</Link></li>:<li><Link to={'/dashboard/orderHistory'}>Dashboard</Link></li>
+}
+
   </>
     return (
        <div className="navbar bg-base-100 shadow-sm">

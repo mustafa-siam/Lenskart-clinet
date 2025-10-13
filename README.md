@@ -1,12 +1,20 @@
-# React + Vite
+# Lenskart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the official repository for **Lenskart**, a modern and elegant eyewear e-commerce website.
 
-Currently, two official plugins are available:
+## Live Site
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can visit the live site here:
+[https://your-lenskart.web.app/](https://your-lenskart.web.app/)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **Stylish Product Collection** – Explore a wide range of glasses and sunglasses.
+* **Secure Authentication** – Users can log in and sign up securely using Firebase.
+* **Wishlist & Cart System** – Easily add, remove, and manage your favorite items.
+* **Smooth Checkout** – Place orders and make payments through Stripe integration.
+* **Admin Dashboard** – Manage products, orders, and users efficiently.
+* **Auto Logout on Token Expiry** – Sessions are managed securely using JWT and cookies.
+* **Responsive Design** – Enjoy a smooth and consistent experience across all devices.
+
+---

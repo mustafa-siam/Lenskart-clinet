@@ -135,7 +135,9 @@ const Placedorder = () => {
     <span className="text-red-600 text-sm">{errors.phone.message}</span>
   )}
 </div>
-          <input
+         <div>
+<label className="label font-medium">Delivery Date</label>
+           <input
   type="date"
   {...register("deliveryDate", {
     required: "Delivery date is required",
@@ -146,6 +148,7 @@ const Placedorder = () => {
 {errors.deliveryDate && (
   <span className="text-red-600 text-sm">{errors.deliveryDate.message}</span>
 )}
+         </div>
 
           <div>
             <label className="label font-medium">Delivery Time</label>

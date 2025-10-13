@@ -1,9 +1,10 @@
 import React from 'react';
-import usePubliceAxios from './usePubliceAxios';
+
 import { useQuery } from '@tanstack/react-query';
+import useAxiossecure from './useAxiossecure';
 
 const useItems = () => {
-    const axiospublic=usePubliceAxios();
+    const axiospublic=useAxiossecure();
     const {data:items=[],refetch}=useQuery({
         queryKey:["items"],
         queryFn:async()=>{

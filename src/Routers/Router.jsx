@@ -40,16 +40,16 @@ const router = createBrowserRouter([
       element:<Orders></Orders>
     },{
       path:'/placedorder',
-      element:<Placedorder></Placedorder>
+      element:<PrivateRoute><Placedorder></Placedorder></PrivateRoute> 
     },{
       path:'/orderconfirm/:orderid',
-      element:<ConfirmOrder></ConfirmOrder>
+      element:<PrivateRoute><ConfirmOrder></ConfirmOrder></PrivateRoute> 
     },{
       path:'/payment',
-      element:<Payment></Payment>
+      element:<PrivateRoute><Payment></Payment></PrivateRoute>
     },{
       path:"/whislist",
-      element:<PrivateRoute><Whislist></Whislist></PrivateRoute> 
+      element:<Whislist></Whislist> 
     },{
       path:"/login",
       element:<Login></Login>
